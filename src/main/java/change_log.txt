@@ -1,0 +1,142 @@
+2012-03-22 10:30
+	1、修改类com.haocom.util.buffer.LongDataBuffer
+		功能：增加了一个finish方法，需要开发人员在全部数据放置完成后手工调用，否则新放置的数据不会生效。具体用法在类注释中有说明。
+	2、修改类com.cplatform.black_list.MmsBlackUserList和com.cplatform.black_list.SmsBlackUserList
+		功能：根据新的LongDataBuffer，主动调用finish方法，避免多线程问题。
+
+2012-01-10 10:30
+	1、修改类com.haocom.util.mail.SendMail
+		功能：添加方法public void setIsDebug(boolean isDebug)，设置是否需要debug打印调试。
+
+2011-12-23 10:30
+	1、新增类com.haocom.util.keywords_filter.KeywordsFilterFuzzyMatch
+		功能：支持模糊匹配的关键字过滤器（同短信通讯关键字过滤机制）。
+		
+2011-12-06 10:30
+	1、修改类com.haocom.util.FileLocker
+		功能：unlock(String filename)方法bug修改。
+
+2011-08-22 10:30
+	1、新增类com.haocom.util.security.RSA1
+		功能：实现RSA公钥/私钥加密，私钥/公钥解密。
+
+2011-06-23 10:30
+	1、com.haocom.util.buffer.LongDataBuffer类优化
+		修改：存放余数的数组是short类型，默认值是0，会产生bug
+
+2011-06-17 10:30
+	1、com.haocom.util.FileMemoryBuffer类优化
+		private int maxDirCount = DEFAULT_MAX_FILE_COUNT; 修改为：private int maxDirCount = DEFAULT_MAX_DIR_COUNT;
+		private int maxFileCount = DEFAULT_MAX_DIR_COUNT; 修改为：private int maxFileCount = DEFAULT_MAX_FILE_COUNT;
+
+2011-06-10 10：30
+	1、com.haocom.util.XMLParser类优化
+		修改：方法public void removeNode(String name)无法删除节点的问题
+
+2010-07-29 10：30
+	1、com.haocom.util.xlstool.XlsTool类优化：
+		新增2个getLastModified方法，获取Excel文件最后修改时间
+
+2010-03-26 10：30
+	1、新增组件com.haocom.util.WrapPushMessage，WAP Push Proxy Gateway (PPG)。
+		根据WAP规范文档，封装PUSH消息，可以返回HEX串或BYTE数据流，便于真正的PPG或应用程序通过可用的载体发送到终端。
+
+2010-02-08 10：30
+	修改CString组件，增加方法实现根据url获取内容及保存内容的功能：
+	1、//根据url获取返回的内容
+	   public static byte[] getContentByUrl(String url)
+	   public static byte[] getContentByUrl(String url, int timeOut)
+	2、//根据输入的url获取返回的内容，并保存到本地
+	   public static void saveContentByUrl(String fileName, String url)
+	   public static void saveContentByUrl(String fileName, String url, int timeOut)
+	   
+2010-01-20 10：30
+	实现数据库不能明文的功能
+
+2009-12-18 10：30
+	1、修改常用工具包ImageUtils组件：
+		修改resize方法，重写算法，并提高图片缩小后的清晰度
+	2、新增组件com.haocom.util.image.image_magic.ImageResize
+		功能：使用ImageMagicK的convert做图片尺寸转换的工具
+
+2009-12-02 10：30
+	1、常用工具包ImageUtils组件修改
+		功能：增加给图片打水印的功能，使用方法drawImage;
+	2、常用工具包FTPClientTool组件修改
+		功能：增加方法可设置ftp连接使用的字符集，使用方法setEncoding。若不设置则默认为"iso-8859-1"。另外增加方法getFtpClient，可用于按照使用需要自定义设置一些设置项。
+
+2009-11-25 10：30
+	1、新增组件com.haocom.util.keywords_filter
+		功能：关键字过滤器。实现了对关键字过滤的功能，可以根据给定的关键字删除输入的文本内容中包含的关键字，或者查找输入的文本内容中所有的关键字，并且可以自定义添加删除管理关键字
+
+2009-11-11 13：00
+	1、com.haocom.util.mail.SendMail类优化
+		新增方法sendHtmlMail(String fromName, String toAddr, String ccAddr, String bccAddr, String subject, String sendMsg, Vector<String> fileList)，用于支持对发件人姓名的显示设置	
+
+2009-11-03 15:00
+	1、DBAccess组件中对于数据库嵌套调用监控开关优化。
+
+2009-10-23 10：30
+	1、新增组件com.haocom.util.lunar
+		功能：农历组件，用于计算农历及获取农历相关内容
+
+2009-10-12 10：30
+	1、新增组件com.haocom.util.thread_log
+		功能：用于处理程序中未捕获的异常，如可记录程序线程终止错误等
+
+2009-09-26 10:30
+	1、常用工具包FileTools修改：
+		FileTools类中增加多个方法，实现功能：在读文件和写文件操作时可设置字符集。
+
+2009-09-14 10:30
+	1、常用工具包zip修改：
+		CodeDef类中MAX_FILE_LENGTH和MAX_TOTAL_FILE_LENGTH去除final修饰。
+		ZipFile类中增加对MAX_FILE_LENGTH和MAX_TOTAL_FILE_LENGTH的自定义设置，使用方法：ZipFile.setMaxSingleFileLength(long length)和ZipFile.setMaxTotleFileLength(long length)
+
+2009-08-27 10:30
+	1、常用工具包DBAccess修改：
+		优化了DBAccess组件中对于默认连接池的设置：修改为将dbpool.xml里面第一个pool作为默认pool，而修改之前是按照hashmap的顺序的。
+	2、常用工具包DatabasePools修改：
+		去除类声明public；
+		方法static synchronized public DatabasePools getInstance(String fileName)中添加DBAccessMonitor.init();
+		
+2009-08-07 10:30	Version.2009-08-07 10:30
+	1、常用工具包CString新增方法：generatePassword(int length)，用于随机产生1个密码：一组字母+数字+特殊符号的字符串。
+	2、常用工具包FileTools新增以下三个方法，都是用于计算目录或者文件的大小(单位为字节)。
+		getFileSize(File dir)，
+		getFileSize(File file, boolean recursive)
+		getFileSize(File file, boolean recursive, int maxDepth)
+
+2009-07-13 11:10	Version.2009-07-13 11:10
+	1、修改常用工具包组件CByte组件中的bug：ToDec方法修改。L364:65改为55
+	2、修改常用工具包ImageUtils组件：
+		(1)saveImageAsJPEG(BufferedImage image, File file, int fileSize)中增加：
+		if (fileSize <= 1) {
+			saveImageAsJPEG(image, file, (double) fileSize);
+			return;
+		}
+		(2)去掉了原来的对于JPEGImageWriteParam的继承，Line1081，Line1122两处修改为：ImageWriteParam iwparam = new JPEGImageWriteParam(null);
+	3、新增常用工具包计数器组件：com.haocom.util.debug，用于测试性能时统计每秒处理性能的工具。
+	4、新增常用工具包对象池组件：com.haocom.util.opools，用于创建对象池并且管理对象。
+	5、新增常用工具包ssh登陆组件：com.haocom.util.ssh，用于实现ssh的登录：配置服务器地址、帐号、密码等信息,并且可以打开Session和SFTP、EXEC通道。
+	
+2009-06-19 10:00	Version.2009-06-19.1000
+	1、增加了组件com.haocom.util.jaxws，实现依据设置生成JAXWS客户端的功能
+	2、队列组件新增类：快速队列SpeedQueue，提高了输入输出的性能
+	3、CString中废弃CString.trimAll(String msg)方法；增加多个半角与全角转换的方法；增加判断字符是否为中文字符方法；增加判断字符是否为日文字符方法
+	4、JMS组件javadoc中添加实际应用范例
+	
+2009-05-31 11:40	Version.2009-05-31.1140
+	1、增加了组件com.haocom.util.data_scanner
+	2、加密组件完善修改
+	3、常用工具包组件增加大量代码使用范例
+	
+2009-03-30 16:45	Version.2009-03-30.1645
+	1、修改FTPClientTool组件，添加方法List<FTPFile> getFTPFileList(String remoteDir)，返回FTPFile的文件列表
+	2、修改FTPClientTool组件，添加方法List<FTPFile> getFTPFileList(String remoteDir, String fileNameRegex)，返回FTPFile的文件列表
+	3、修改FTPClientTool组件，添加方法List<FTPFile> getFTPDirList(String remoteDir)，返回FTPFile的目录列表
+	4、修改FTPClientTool组件，添加方法List<FTPFile> getFTPDirList(String remoteDir, String dirNameRegex)，返回FTPFile的目录列表
+	
+2009-03-12 17:49	Version.2009-03-12.1746
+	1、修改了公共组件的FTPClientTool组件，增加了rename方法
+	2、修正了ZipFile组件中，压缩文件时会出现文件名包含“/”的BUG
